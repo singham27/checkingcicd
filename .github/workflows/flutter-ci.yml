@@ -37,6 +37,6 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           name: release-apk
-          artifacts: "build/app/outputs/apk/debug/"
+          artifacts: "build/app/outputs/apk/debug/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
