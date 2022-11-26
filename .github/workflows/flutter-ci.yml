@@ -34,7 +34,7 @@ jobs:
       - run: flutter build apk
 
       # Upload generated apk to the artifacts.
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v1
         with:
           name: release-apk
           artifacts: "build/app/outputs/apk/debug/*"
