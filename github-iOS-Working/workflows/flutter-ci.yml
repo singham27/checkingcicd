@@ -24,11 +24,9 @@ jobs:
           cd ..
           zip -r app.ipa Payload
       #      - uses: actions/upload-artifact@v3
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
+      - uses: ncipollo/release-action@v1
         with:
-          name: Builds will show in Artifact
-          artifacts: "build/ios/iphoneos/app.ipa"
           #path: build/app/outputs/apk/release/app-release.apk
+          artifacts: "build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
