@@ -1,5 +1,5 @@
 
-name: Flutter CI Android Working
+name: Flutter CI iOS & Android Working
 
 on:
   pull_request:
