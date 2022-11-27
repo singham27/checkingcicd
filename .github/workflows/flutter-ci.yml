@@ -39,7 +39,7 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app.ipa Payload
-        uses: ncipollo/release-action@v1
+      - uses: ncipollo/release-action@v1
         with:
           artifacts: "build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
@@ -59,7 +59,7 @@ jobs:
           channel: "stable"
       - run: flutter pub get
       - run: flutter build apk
-        uses: ncipollo/release-action@v1
+      - uses: ncipollo/release-action@v1
         with:
           artifacts: "build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
