@@ -15,8 +15,17 @@ jobs:
           channel: "stable"
           architecture: x64
       - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
-      - uses: actions/upload-artifact@v3
+      - run: |
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app.ipa Payload
+#      - uses: actions/upload-artifact@v3
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
         with:
           name: Builds will show in Artifact
           artifacts: "build/ios/iphoneos/app.ipa"
