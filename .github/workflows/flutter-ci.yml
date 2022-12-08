@@ -29,7 +29,6 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk --debug
-      - uses: actions/upload-artifact@v1
       - name: Push to Releases
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
