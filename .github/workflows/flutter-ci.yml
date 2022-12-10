@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Apple Certificate
         uses: apple-actions/import-codesign-certs@v1
@@ -35,9 +35,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - name: Install and set Flutter version
-        uses: subosito/flutter-action@v1.4.0
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'latest'
+          channel: 'stable'
+#           flutter-version: latest
 
       - name: Restore packages
         run: flutter pub get
