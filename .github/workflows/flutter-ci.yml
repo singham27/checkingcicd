@@ -80,3 +80,6 @@ jobs:
         name: adhoc-ipa
         # Path to the release files
         path: build/ios/ipa/*.ipa
+        artifacts: "build/ios/ipa/*.ipa"
+        tag: v1.0.${{ github.run_number }}
+        token: ${{ secrets.TOKEN }}
