@@ -21,7 +21,14 @@ jobs:
           architecture: x64
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build ios --release --no-codesign
+      - run: |
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app.ipa Payload
       - name: Upload iPA
         uses: actions/upload-artifact@master
         with:
@@ -48,3 +55,57 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           group: testers
           file: build/ios/iphoneos/app.ipa
+
+
+
+
+#          name: CI
+#          on:
+#            push:
+#              branches:
+#                - master
+#            pull_request:
+#              branches:
+#                - master
+#          jobs:
+#            build_ios:
+#              name: Build Flutter (iOS)
+#              runs-on: macos-latest
+#              steps:
+#                - uses: actions/checkout@v1
+#                - uses: actions/setup-java@v1
+#                  with:
+#                    java-version: '12.x'
+#                - uses: subosito/flutter-action@v2
+#                  with:
+#                    channel: 'stable'
+#                    architecture: x64
+#                - run: flutter pub get
+#                - run: flutter clean
+#                - run: flutter build ios --release --no-codesign
+#                - name: Upload iPA
+#                  uses: actions/upload-artifact@master
+#                  with:
+#                    name: ios-build
+#                    path: build/ios/iphoneos
+#            beta_ios:
+#              name: Upload iOS Beta to Firebase App Distribution
+#              needs: [ build_ios ]
+#              runs-on: ubuntu-latest
+#              steps:
+#                - uses: actions/checkout@v1
+#                - name: set up JDK 1.8
+#                  uses: actions/setup-java@v1
+#                  with:
+#                    java-version: 1.8
+#                - name: Download Artifact
+#                  uses: actions/download-artifact@master
+#                  with:
+#                    name: ios-build
+#                - name: Upload IPA
+#                  uses: wzieba/Firebase-Distribution-Github-Action@v1
+#                  with:
+#                    appId: ${{secrets.FIREBASE_APP_ID}}
+#                    serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+#                    group: testers
+#                    file: build/ios/iphoneos/app.ipa
