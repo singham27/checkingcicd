@@ -20,12 +20,13 @@ jobs:
           channel: 'stable'
           architecture: x64
       - run: flutter pub get
+      - run: flutter clean
       - run: flutter build ios --release --no-codesign
       - name: Upload iPA
         uses: actions/upload-artifact@master
         with:
           name: ios-build
-          path: build/ios/iphoneos/app.ipa
+          path: build/ios/iphoneos
   beta_ios:
     name: Upload iOS Beta to Firebase App Distribution
     needs: [build_ios]
@@ -46,4 +47,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           group: testers
-          file: build/ios/iphoneos/app.ipa
+          file: Runner.ipa
