@@ -10,7 +10,7 @@ jobs:
   build_ios:
     runs-on: macos-latest
     env:
-      SHEME: Runner
+      SCHEME: Runner
       BUILD_CONFIGURATION: Release
 
     steps:
