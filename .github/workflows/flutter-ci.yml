@@ -26,6 +26,8 @@ jobs:
 
       - run: flutter pub get
       - run: flutter build apk
+      - name: Upload APK Action
+        uses: actions/upload-artifact@master
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
