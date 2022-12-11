@@ -61,9 +61,10 @@ jobs:
     
 #install flutter
      - name: Flutter get
-       uses: subosito/flutter-action@v1.3.2
+       uses: subosito/flutter-action@v2
        with:
-         flutter-version: '1.17.5'
+         channel: "stable"
+         architecture: x64
      - run: flutter pub get
 
 #build and sign the ipa
