@@ -1,98 +1,49 @@
-# Set the name of your workflow
-name: IOSBuilder
-
-# Controls when the action will run.
-# [workflow_dispatch] --> allows to run the workflow manually
-# you may use the following to build on each push
-# on:
-# push:
-# branches: [ master ]
-
+name: CI
 on:
   push:
-    branches: [ master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
-  # In this workflow we use a single job called "build"
-  build:
-    # The type of runner ie, the OS that the job will run on. apart from mac windows and ubuntu are also available
-    runs-on: macos-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  build_ios:
+    name: Build Flutter (iOS)
+    runs-on: macOS-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so our job can access it
       - uses: actions/checkout@v1
-
-      - name: Create Folder for certificates and profiles
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          mkdir -p ~/Library/MobileDevice/Certificates/
-
-        # decode and save the p12 and provisioning files stored as secrets
-      - name: Get Certificate
-        id: certFileDecode
-        uses: timheuer/base64-to-file@v1.0.3
+      - uses: actions/setup-java@v1
         with:
-          fileName: 'certificate.p12'
-          encodedString: ${{ secrets.P12_BASE64 }}
-      - name: Copy Certificate
-        run: mv ${{ steps.certFileDecode.outputs.filePath }} ~/Library/MobileDevice/Certificates/certificate.p12
-
-      - name: Get Profile
-        id: profFileDecode
-        uses: timheuer/base64-to-file@v1.0.3
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
         with:
-          fileName: 'decoded.mobileprovision'
-          encodedString: ${{ secrets.MOBILEPROVISION_BASE64 }}
-      - name: Copy Profiles
-        run: mv ${{ steps.profFileDecode.outputs.filePath }} ~/Library/MobileDevice/Provisioning\ Profiles/decoded.mobileprovision
-
-      #install the necessary dependencies
-      - name: Install python and codemagic tools
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install python dependencies
-        run:  python -m pip install codemagic-cli-tools
-      - name: Initialize Keychain with certificate
-        run: |
-          keychain initialize
-          keychain add-certificates --certificate ~/Library/MobileDevice/Certificates/certificate.p12 --certificate-password ${{ secrets.cert_password }}
-
-      #install flutter
-      - name: Flutter get
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-          architecture: x64
+          channel: 'stable'
       - run: flutter pub get
-
-      #build and sign the ipa
-      - name: Building IPA
-        run: |
-          xcode-project use-profiles
-          flutter build ios --release --no-codesign
-          xcode-project build-ipa --workspace ios/Runner.xcworkspace --scheme Runner --config Release
-      #collect the files
-beta_ios:
-  name: Upload iOS Beta to Firebase App Distribution
-  needs: [build_ios]
-  runs-on: ubunut-latest
-  steps:
-    - uses: actions/checkout@v1
-    - name: set up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: "12.x"
-    - name: Download Artifact
-      uses: actions/download-artifact@master
-      with:
-        name: ios-build
-    - name: Upload IPA
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
-      with:
-        appId: ${{secrets.FIREBASE_IOS_APPID}}
-        token: ${{secrets.FIREBASE_TOKEN}}
-        group: testers
-        file: Runner.ipa
+      - run: flutter clean
+      - run: flutter build ios --release --no-codesign
+      - name: Upload iPA
+        uses: actions/upload-artifact@master
+        with:
+          name: ios-build
+          path: build/ios/iphoneos
+  beta_ios:
+    name: Upload iOS Beta to Firebase App Distribution
+    needs: [build_ios]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ios-build
+      - name: Upload IPA
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          group: testers
+          file: Runner.ipa
