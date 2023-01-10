@@ -1,4 +1,4 @@
-package com.miggle.herosapp
+package com.gamechangers.app
 
 import io.flutter.embedding.android.FlutterActivity
 

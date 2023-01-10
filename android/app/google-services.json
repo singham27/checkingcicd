@@ -34,7 +34,7 @@
               "client_id": "237219588897-s6goiqeahal2sbvjsmo3e3u11pl0ql39.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.miggle.herosapp"
+                "bundle_id": "com.gamechangers.app"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:237219588897:android:cf7af6cfcb2f55e5a4ec60",
         "android_client_info": {
-          "package_name": "com.miggle.herosapp"
+          "package_name": "com.gamechangers.app"
         }
       },
       "oauth_client": [
@@ -70,7 +70,7 @@
               "client_id": "237219588897-s6goiqeahal2sbvjsmo3e3u11pl0ql39.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.miggle.herosapp"
+                "bundle_id": "com.gamechangers.app"
               }
             }
           ]
