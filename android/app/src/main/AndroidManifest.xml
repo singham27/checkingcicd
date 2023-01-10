@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.miggle.herosapp">
+    package="com.gamechangers.app">
    <application
         android:label="checkingcicd"
         android:name="${applicationName}"

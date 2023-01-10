@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "237219588897",
+    "project_id": "herosapp-b3c4e",
+    "storage_bucket": "herosapp-b3c4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237219588897:android:bf5e24bcd8ed1c81a4ec60",
+        "android_client_info": {
+          "package_name": "com.gamechangers.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237219588897-bipkg68k2a33hk3k4bgmr2uijmoic2pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY6csLk-Xo7_TKpT2JxL9d7-cKdUhYKdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237219588897-bipkg68k2a33hk3k4bgmr2uijmoic2pn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237219588897-s6goiqeahal2sbvjsmo3e3u11pl0ql39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.miggle.herosapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237219588897:android:cf7af6cfcb2f55e5a4ec60",
+        "android_client_info": {
+          "package_name": "com.miggle.herosapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237219588897-bipkg68k2a33hk3k4bgmr2uijmoic2pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY6csLk-Xo7_TKpT2JxL9d7-cKdUhYKdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237219588897-bipkg68k2a33hk3k4bgmr2uijmoic2pn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237219588897-s6goiqeahal2sbvjsmo3e3u11pl0ql39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.miggle.herosapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
